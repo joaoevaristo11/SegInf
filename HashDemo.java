@@ -35,17 +35,12 @@ public class HashDemo {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 
-        String goodFile = "C:\\Users\\ruben\\Documents\\GitHub\\SEGING-T1\\src\\GoodApp.java";
-        String badFile = "C:\\Users\\ruben\\Documents\\GitHub\\SEGING-T1\\src\\NewBadApp.java";
+        String goodFile = "GoodApp.java";
+        String badFile = "NewBadApp.java";
 
 
         byte[] h16_good = hashCalculator(goodFile);
         byte[] h16_bad = hashCalculator(badFile);
-
-        if(Arrays.equals(h16_good, h16_bad)){
-            System.out.println("Os hashs já estão iguais!");
-            return;
-        }
 
         int count = 0;
         while(!Arrays.equals(h16_good, h16_bad)) {
@@ -57,6 +52,9 @@ public class HashDemo {
         }
 
         System.out.flush();
+        if(count==0){
+            System.out.println("Os hash codes de ambos os ficheiros já são iguais.");
+        }
         System.out.println("Conseguimos! NewBadApp igual a GoodApp, após " + count + " tentativas!");
     }
 }
