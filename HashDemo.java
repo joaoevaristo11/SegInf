@@ -9,13 +9,6 @@ import java.util.Arrays;
 
 public class HashDemo {
 
-    private static void prettyPrint(byte[] h) {
-        for (byte b : h) {
-            System.out.printf("%02x", b);
-        }
-        System.out.println();
-    }
-
     private static byte[] hashCalculator(String fileName) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
 
@@ -30,7 +23,7 @@ public class HashDemo {
         }
         byte[] h = md.digest();
 
-       return Arrays.copyOfRange(h, 0, 2);
+        return Arrays.copyOfRange(h, 0, 2);
     }
 
     private static void appendBadApp(String fileName, int count) throws IOException {
@@ -39,18 +32,23 @@ public class HashDemo {
         writer.append(str);
         writer.close();
     }
-    
+
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 
-        String goodFile = "GoodApp.java";
-        String badFile = "NewBadApp.java";
+        String goodFile = "C:\\Users\\ruben\\Documents\\GitHub\\SEGING-T1\\src\\GoodApp.java";
+        String badFile = "C:\\Users\\ruben\\Documents\\GitHub\\SEGING-T1\\src\\NewBadApp.java";
 
 
         byte[] h16_good = hashCalculator(goodFile);
-        byte[] h16_bad = {};
+        byte[] h16_bad = hashCalculator(badFile);
+
+        if(Arrays.equals(h16_good, h16_bad)){
+            System.out.println("Os hashs já estão iguais!");
+            return;
+        }
 
         int count = 0;
-        while(!Arrays.equals(h16_bad, h16_good)) {
+        while(!Arrays.equals(h16_good, h16_bad)) {
             if(count == 0) {
                 System.out.println("A processar ...");
             }
