@@ -43,6 +43,9 @@ public class HashDemo {
         byte[] h16_bad = hashCalculator(badFile);
 
         int count = 0;
+
+        long startTime = System.nanoTime();
+
         while(!Arrays.equals(h16_good, h16_bad)) {
             if(count == 0) {
                 System.out.println("A processar ...");
@@ -51,10 +54,15 @@ public class HashDemo {
             h16_bad = hashCalculator(badFile);
         }
 
-        System.out.flush();
+        long endTime = System.nanoTime();
+        double elapsed = (endTime - startTime) / 1000000000.0;
+
         if(count==0){
             System.out.println("Os hash codes de ambos os ficheiros já são iguais.");
+        } else {
+            System.out.flush();
+            System.out.println("Conseguimos! NewBadApp igual a GoodApp, após " + count + " tentativas!");
+            System.out.println("Tempo de execução:  " + elapsed);
         }
-        System.out.println("Conseguimos! NewBadApp igual a GoodApp, após " + count + " tentativas!");
     }
 }
